@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>QualityPro Academy</title>
+<meta name="description" content="QualityPro Pest & Wildlife Services — Training Academy">
+<meta name="theme-color" content="#10141b">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Academy">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<style>
+:root{--bg:#10141b;--card:#1a212e;--card2:#232d3d;--line:#2e3a4d;--txt:#eef2f7;--dim:#9fb0c3;--red:#d8232a;--red-d:#a3151b;--ok:#2fae5f;--warn:#e8a13a;--bad:#e05252;--radius:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:86px;min-height:100vh}
+a{color:#7db4ff}
+button{font:inherit;cursor:pointer;border:none;border-radius:10px;padding:12px 16px;background:var(--card2);color:var(--txt)}
+button.primary{background:var(--red);color:#fff;font-weight:700}
+button.primary:active{background:var(--red-d)}
+button.ghost{background:transparent;border:1px solid var(--line)}
+button:disabled{opacity:.45;cursor:default}
+input,select{font:inherit;width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0d1117;color:var(--txt)}
+label{display:block;font-size:.85rem;color:var(--dim);margin:14px 0 6px}
+header{position:sticky;top:0;z-index:20;background:#0b0e13;border-bottom:3px solid var(--red);padding:10px 16px;display:flex;align-items:center;gap:12px}
+header img{width:44px;height:44px;border-radius:10px}
+header .t1{font-weight:900;letter-spacing:.5px;font-size:1.05rem}
+header .t1 span{color:var(--red)}
+header .t2{font-size:.75rem;color:var(--dim)}
+header .who{margin-left:auto;text-align:right;font-size:.8rem;color:var(--dim)}
+header .who b{color:var(--txt);display:block;font-size:.9rem}
+main{max-width:560px;margin:0 auto;padding:16px}
+h2{font-size:1.15rem;margin:18px 0 10px}
+h2:first-child{margin-top:2px}
+h3{font-size:1rem;margin:14px 0 8px}
+p{line-height:1.45}
+.dim{color:var(--dim)} .small{font-size:.85rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:12px 0}
+.card.tap:active{background:var(--card2)}
+.row{display:flex;align-items:center;gap:10px}
+.row.wrap{flex-wrap:wrap}
+.grow{flex:1}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700;background:var(--card2);color:var(--dim)}
+.pill.ok{background:#14402a;color:#6fe3a1}.pill.bad{background:#4a1d1d;color:#ff9c9c}.pill.warn{background:#4a3712;color:#ffc46b}.pill.red{background:var(--red);color:#fff}
+.bar{height:10px;border-radius:999px;background:#0d1117;overflow:hidden;margin:8px 0}
+.bar>i{display:block;height:100%;background:var(--red);border-radius:999px;transition:width .3s}
+.stage{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.stage:last-child{border-bottom:none}
+.stage .dot{width:38px;height:38px;flex:none;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;color:var(--dim)}
+.stage.done .dot{background:#14402a;color:#6fe3a1}
+.stage.here .dot{background:var(--red);color:#fff}
+.stage.here .sn{font-weight:800}
+.stage .sn{font-size:.98rem}
+.stage .sd{font-size:.82rem;color:var(--dim)}
+.modhead{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;padding:4px 0}
+.lessons{display:none;padding:4px 0 4px 8px}
+.lessons.open{display:block}
+.kp li{margin:6px 0 6px 18px;line-height:1.4}
+.qopt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border:1px solid var(--line);background:#0d1117}
+.qopt.sel{border-color:var(--red);background:#2a1620}
+.checkrow{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+.checkrow:last-child{border-bottom:none}
+.checkrow .st{margin-left:auto;flex:none;text-align:right}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:#0b0e13;border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{flex:1;background:transparent;border-radius:0;padding:10px 2px 8px;color:var(--dim);font-size:.78rem;font-weight:600}
+nav.tabs button.on{color:#fff}
+nav.tabs button .ic{display:block;font-size:1.25rem;line-height:1.2}
+.notice{border:1px solid var(--warn);background:#2b2113;color:#ffd9a0;border-radius:var(--radius);padding:12px 14px;margin:12px 0;font-size:.9rem}
+.err{color:#ff9c9c;font-size:.9rem;margin-top:8px;min-height:1.2em}
+.okbox{border:1px solid var(--ok);background:#12291b;color:#a9ecc4;border-radius:var(--radius);padding:12px 14px;margin:12px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:flex;background:#0d1117;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:10px 0}
+.seg button{flex:1;background:transparent;border-radius:0;padding:11px;color:var(--dim);font-weight:700}
+.seg button.on{background:var(--red);color:#fff}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;z-index:40;align-items:flex-end;justify-content:center}
+.modal.open{display:flex}
+.modal .sheet{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:20px 16px 28px}
+.timer{font-variant-numeric:tabular-nums;font-weight:800}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<header>
+  <img src="./icon-192.png" alt="QualityPro logo">
+  <div>
+    <div class="t1">QUALITY<span>PRO</span> ACADEMY</div>
+    <div class="t2">Pest &amp; Wildlife Training Academy</div>
+  </div>
+  <div class="who" id="hdrWho"></div>
+</header>
+<main id="app"><p class="dim" style="padding:20px 0">Loading…</p></main>
+<nav class="tabs hidden" id="tabbar">
+  <button data-tab="path"><span class="ic">🧭</span>Path</button>
+  <button data-tab="learn"><span class="ic">📚</span>Learn</button>
+  <button data-tab="checklist"><span class="ic">✅</span>Checklist</button>
+  <button data-tab="licence"><span class="ic">🪪</span>Licence</button>
+</nav>
+<div class="modal" id="modal"><div class="sheet" id="modalSheet"></div></div>
+
+<script>
+'use strict';
+/* ================= QualityPro Academy (GitHub Pages + Supabase) =================
+   Same pattern as the Technician Field Guide: publishable key embedded by
+   design, all data access through security-definer RPCs (academy_*), PINs
+   hashed server-side, sends queue in localStorage when offline. */
+var SB_URL = 'https://nbhkndetjaytevyzqsuh.supabase.co';
+var SB_KEY = 'sb_publishable_sT4OYqX5_H-GMiWWoDbpzQ_kSGEk8OD';
+
+function store(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function read(k){try{var v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){return null}}
+var session = read('qpa_session'); // {name, role, token}
+function rpc(fn,args){
+  return fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',
+    headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify(args||{})}).then(function(res){
+      if(!res.ok) return res.text().then(function(t){throw new Error(fn+' ('+res.status+') '+t.slice(0,160))});
+      return res.json();
+    });
+}
+/* Offline queue: quiz + mock results queue and retry on reconnect. */
+function enqueue(item){var q=read('qpa_queue')||[];q.push(item);store('qpa_queue',q)}
+var flushing=false;
+function flushQueue(){
+  if(!session||flushing||!navigator.onLine) return;
+  var q=read('qpa_queue')||[]; if(!q.length) return;
+  flushing=true;
+  (function next(i){
+    if(i>=q.length){store('qpa_queue',[]);flushing=false;return}
+    var it=q[i];
+    rpc(it.fn,it.args).then(function(){next(i+1)},function(){flushing=false});
+  })(0);
+}
+window.addEventListener('online',flushQueue);
+function sendProgress(fn,args){
+  if(!session) return Promise.resolve(null);
+  args.p_token=session.token;
+  return rpc(fn,args).catch(function(){ enqueue({fn:fn,args:args}); return null; });
+}
+
+/* ============================== Content ============================== */
+var STAGES={
+ pest:[['P0','Academy Trainee','In the Academy: lessons, lab and ride-alongs. No solo work.'],
+ ['P1','Apprentice','Supervised field work under a certified applicator.'],
+ ['P2','DEC Technician — 7A','Licensed technician. First solo route, core pest services.'],
+ ['P3','Certified Applicator','After 1 year as a Technician (7A). Can supervise apprentices and technicians.'],
+ ['P4','Specialist','7C Termite, 7F Food Processing, or another specialty.'],
+ ['P5','Senior Technician','Consistently hits the quality measures; complex jobs and inspections.'],
+ ['P6','Lead / Academy Trainer','Signs off practical checklists, grades observed jobs, coaches trainees.']],
+ wildlife:[['W0','Academy Trainee','In the Academy: lessons, lab and ride-alongs. No solo wildlife work.'],
+ ['W1','Wildlife Apprentice','Supervised trapping and exclusion ride-alongs.'],
+ ['W2','Licensed NWCO','DEC NWCO licence in hand. First solo wildlife jobs.'],
+ ['W3','Specialist','Bat Exclusion Lead or Wildlife Exclusion Lead.'],
+ ['W4','Senior Technician','Consistently hits the quality measures; complex wildlife jobs.'],
+ ['W5','Lead / Academy Trainer','Signs off practical checklists, grades observed jobs, coaches trainees.']]
+};
+var CHECKLISTS={
+ pest:[['ppe','PPE & label check'],['calibration','Sprayer calibration'],['crack','Crack-and-crevice treatment'],
+ ['antA','Ant job — Protocol A'],['antB','Ant job — Protocol B'],['roach','Cockroach job'],
+ ['rodent_insp','Rodent inspection'],['gp_insp','General pest inspection — 5 steps'],
+ ['termite_insp','Termite inspection — 8 steps'],['gd_notes','Gorilla Desk notes & photos']],
+ wildlife:[['trap','Trap set & check'],['exclusion','Exclusion sealing'],['attic','Attic inspection'],
+ ['roof','Roof & ladder work'],['elevated','Elevated Wildlife Inspection form'],
+ ['handling','Capture & handling assist'],['bat','Bat exclusion assist'],['species_id','Species & scat ID check']]
+};
+var MILESTONES={
+ pest:[['apprentice','Apprentice registered'],['course30','30-hour DEC course complete'],
+ ['core_pass','Core exam passed'],['cat7a_pass','Category 7A exam passed'],
+ ['tech_issued','DEC Technician licence (7A) issued'],
+ ['applicator_applied','Certified Applicator applied for (after 1 year as Technician)'],
+ ['applicator_issued','Certified Applicator licence issued']],
+ wildlife:[['training','NWCO training complete'],['nwco_exam','NWCO exam passed (80%+)'],
+ ['licence_issued','NWCO licence issued ($50/yr, expires Sept 30)'],['annual_report','Annual DEC report filed']]
+};
+var MODULES={
+pest:[
+{id:'P1',week:1,title:'Safety First: PPE, Labels & SDS',points:['The label is the law — never use a product in a way the label does not allow.','Wear the PPE the label requires for the product you are using.','Know where the SDS for your products lives before you need it.','If a customer asks for something off-label, decline and explain, the way QualityPro does it.'],quiz:[
+ ['A customer asks you to use a product in a way the label doesn\u2019t mention. What do you do?',['Use it — the customer asked for it','Don\u2019t use it that way; the label is the law','Use half the amount so it\u2019s safe'],1],
+ ['Where do you check what PPE a product requires?',['The truck cab','The product label','Ask the customer'],1],
+ ['What does an SDS tell you?',['The price list','Safety and handling information for a product','Your route for the day'],1]]},
+{id:'P2',week:1,title:'Pest ID Basics',points:['Correct ID comes before any treatment — the Field Guide Pest ID section is your reference.','Look for signs: droppings, gnaw marks, frass, shed skins, webbing.','Ants are grouped: Protocol A covers Argentine, Odorous House and Pharaoh ants.','Cockroaches are grouped by species — German is handled differently from American or Oriental.'],quiz:[
+ ['What is the first step on any pest job?',['Spray first, ask later','Inspect and identify the pest','Set traps everywhere'],1],
+ ['Which ants are covered by Protocol A?',['Carpenter and Pavement','Argentine, Odorous House and Pharaoh','Field ants only'],1],
+ ['Which of these is a sign of pests, not the pest itself?',['Droppings and gnaw marks','The product label','A service plan'],0]]},
+{id:'P3',week:2,title:'IPM & the QualityPro Inspection',points:['IPM means solving the cause, not just the symptom: inspect, identify, then act.','Sanitation and exclusion do more long-term work than product alone.','The General Pest inspection has 5 steps; the Termite inspection has 8 steps — follow them in order.','Every finding goes into Gorilla Desk notes with photos, the same day.'],quiz:[
+ ['What does IPM start with?',['Applying product','Inspection and correct identification','A recurring plan'],1],
+ ['Which pair does the most long-term work in IPM?',['More product and more visits','Sanitation and exclusion','Traps and glue boards only'],1],
+ ['How many steps are in the Termite inspection?',['5 steps','8 steps','3 steps'],1]]},
+{id:'P4',week:2,title:'Ants: Protocol A & Protocol B',points:['Protocol A: Argentine, Odorous House, Pharaoh — bait-focused approach per the SOP.','Protocol B: Carpenter, Pavement, Field — find the nest and the moisture or entry source.','Never spray repellent products over bait placements.','Carpenter ant jobs always check for moisture damage and entry points.'],quiz:[
+ ['A Pharaoh ant job follows which protocol?',['Protocol B','Protocol A','No protocol — spray only'],1],
+ ['Carpenter ants are in which protocol?',['Protocol A','Protocol B','Both'],1],
+ ['Why don\u2019t you spray repellent over ant bait?',['It wastes product','It keeps ants away from the bait so the bait can\u2019t work','It is against Gorilla Desk rules'],1]]},
+{id:'P5',week:3,title:'Cockroaches',points:['German cockroaches live close to food, water and heat — kitchens and appliances first.','American and Oriental cockroaches are perimeter and basement problems more than kitchen ones.','Vacuum, sanitation and targeted placements beat broadcast spraying.','Always confirm the species before choosing the approach — the SOPs are grouped by species.'],quiz:[
+ ['Where do German cockroaches concentrate?',['Attics','Near food, water and heat','Roof lines'],1],
+ ['What comes before treatment on a roach job?',['Confirm the species','Set the next appointment','Offer a plan upgrade'],0],
+ ['Which approach beats broadcast spraying for roaches?',['Spraying more often','Vacuum, sanitation and targeted placements','Doing nothing for a month'],1]]},
+{id:'P6',week:3,title:'Rodents: Mice & Rats',points:['Find the entry points first — a mouse fits through a hole the size of a dime.','The Rodent Entry Point inspection documents every gap before any work is quoted.','Sanitation and stored food drive most indoor rodent pressure.','Trapping and exclusion are the long-term answer; document everything with photos.'],quiz:[
+ ['What is the first priority on a rodent job?',['Setting snap traps','Finding and documenting entry points','Placing bait outside'],1],
+ ['What drives most indoor rodent pressure?',['Loud noises','Food and harborage','Cold weather only'],1],
+ ['What belongs in Gorilla Desk after a rodent inspection?',['Nothing — it\u2019s on paper','Findings and photos, the same day','Just the invoice'],1]]},
+{id:'P7',week:3,title:'Stinging Insects, Bed Bugs & Termites',points:['Stinging insect work: identify the species and the nest location before approaching.','Keep your distance and your PPE on until the nest is confirmed treated.','Bed bug jobs follow the SOP exactly — prep instructions to the customer matter as much as treatment.','Termite work starts with the full 8-step inspection, every time.'],quiz:[
+ ['Before approaching a stinging insect nest, you must…',['Confirm species and nest location','Spray from a distance and hope','Remove your PPE for speed'],0],
+ ['What does a termite job start with?',['Treatment','The full 8-step inspection','A quote over the phone'],1],
+ ['Why do bed bug prep instructions matter?',['They don\u2019t','The customer\u2019s prep decides whether the treatment can work','For billing'],1]]},
+{id:'P8',week:4,title:'Products, Labels & Equipment',points:['The Academy works from the same 67 products as the Field Guide\u2019s product list.','Read the label every time — rates, sites and PPE are all on it.','Calibrate sprayers so what you apply matches the label rate.','Store and transport products secured, labelled and away from food and kids.'],quiz:[
+ ['Where do application rates come from?',['Habit','The product label','The customer'],1],
+ ['Why calibrate a sprayer?',['To use product faster','So the amount applied matches the label rate','It isn\u2019t needed'],1],
+ ['How many products are on the QualityPro master list used in training?',['20','67','297'],1]]},
+{id:'P9',week:4,title:'Plans, Pricing & Gorilla Desk',points:['QualityPro\u2019s recurring plans are Silver, Gold and Platinum — know what each one covers.','The Price List is the source for prices — never quote from memory.','Gorilla Desk holds the job, the notes and the invoice: complete them before you leave.','Lead count, route completion and time on site are tracked — clean paperwork is part of the job.'],quiz:[
+ ['What are QualityPro\u2019s three recurring plans?',['Basic, Plus, Pro','Silver, Gold and Platinum','Starter, Family, Estate'],1],
+ ['Where do prices come from on a job?',['Memory','The customer','The Price List'],2],
+ ['When are Gorilla Desk notes finished?',['At the end of the week','Before you leave the job, the same day','Only if there\u2019s a problem'],1]]}
+],
+wildlife:[
+{id:'W1',week:1,title:'Wildlife Safety First',points:['Wildlife work has its own risks: bites, scratches, droppings and tight spaces.','Gloves and a respirator in attics are standard, not optional.','Never corner an animal — always leave it (and yourself) an escape route.','If you are bitten or scratched, report it the same day, no exceptions.'],quiz:[
+ ['In an attic, what is standard PPE?',['None needed','Gloves and a respirator','Just a flashlight'],1],
+ ['Why do you never corner a wild animal?',['It slows the job','A cornered animal attacks — leave an escape route','Company policy says so'],1],
+ ['A bite or scratch on the job gets reported…',['At the end of the season','The same day','Only if it hurts'],1]]},
+{id:'W2',week:1,title:'Species ID & Field Reference',points:['The Field Guide covers 15 wildlife species, each with a Field Reference panel.','Scat, tracks and damage tell you the species before you ever see the animal.','Correct ID decides the method — the wrong ID means the wrong (and possibly illegal) approach.','Bat, coyote, deer, pigeon and rabbit scat references are in the guide; use them.'],quiz:[
+ ['How many wildlife species does the Field Guide cover?',['8','15','21'],1],
+ ['What can identify a species before you see the animal?',['The invoice','Scat, tracks and damage','The time of day'],1],
+ ['Why does correct species ID matter so much?',['It decides the legal method you can use','It doesn\u2019t — one method fits all','For the report photo'],0]]},
+{id:'W3',week:2,title:'Site Evaluation',points:['Every wildlife job starts with a site evaluation: animal, entry points, damage, attractants.','DEC training requires site evaluation as a core NWCO skill.','Look high and low: rooflines, soffits, vents, foundations and chimneys.','Your evaluation becomes the customer\u2019s plan — write it so the office can follow it.'],quiz:[
+ ['What starts every wildlife job?',['Setting traps','A site evaluation','The invoice'],1],
+ ['Which of these is a core NWCO training area named by DEC?',['Advertising','Site evaluation','Vehicle care'],1],
+ ['Where do you look for entry points?',['Only at ground level','Rooflines, soffits, vents, foundations and chimneys','Only in the attic'],1]]},
+{id:'W4',week:2,title:'Exclusion: the Long-Term Fix',points:['Exclusion — sealing the entry — is what makes wildlife work last.','DEC expects non-lethal methods and exclusion to be considered before removal.','Seal with materials the animal can\u2019t chew or pull through, and check your work.','Never seal an opening with animals or young still inside.'],quiz:[
+ ['What makes a wildlife job last?',['Trapping alone','Exclusion — sealing the entries','Repellent sprays'],1],
+ ['Before removal, DEC expects you to consider…',['Non-lethal methods and exclusion','Only the fastest option','Nothing — trap first'],0],
+ ['When must you never seal an entry?',['On a weekday','When animals or young are still inside','When it\u2019s raining'],1]]},
+{id:'W5',week:3,title:'Trapping, Capture & Handling',points:['Capture and handling is a named DEC training area for the NWCO licence.','Set traps where the animal travels, and check them on schedule — trapped animals are your responsibility.','Habitat changes (food, shelter, access) reduce repeat problems.','Handle animals calmly, with gloves, and transport them contained and covered.'],quiz:[
+ ['A trapped animal is whose responsibility until it\u2019s dealt with?',['The customer\u2019s','Yours — check traps on schedule','The office\u2019s'],1],
+ ['Which is a DEC NWCO training area?',['Capture and handling techniques','Sales scripts','Route planning'],0],
+ ['What reduces repeat wildlife problems after removal?',['Nothing','Habitat modification — food, shelter, access','More traps forever'],1]]},
+{id:'W6',week:3,title:'Bats',points:['Bat work is exclusion-first: find every entry, seal the secondaries, leave the main exit with a way out.','Never seal bats inside — timing and young matter, and the SOP governs the season rules.','Bat droppings in an attic mean respirator on, every time.','The Field Guide entry is titled “Bat” — follow its exclusion steps in order.'],quiz:[
+ ['Bat work is built around…',['Trapping','Exclusion','Fumigation'],1],
+ ['Why can\u2019t you just seal every bat entry at once?',['It takes too long','Bats or young could be sealed inside','The customer prefers traps'],1],
+ ['Bat droppings in an attic mean…',['No precautions needed','Respirator on, every time','Leave the job'],1]]},
+{id:'W7',week:3,title:'Elevated Inspection & Forms',points:['The Elevated Wildlife Inspection covers the high areas: roof, attic, chimneys, vents.','Ladder safety comes first: set, angle and footing checked before you climb.','The inspection form is completed on site and goes to Gorilla Desk with photos.','Recommendations use single items with levels — priced from the Price List, not memory.'],quiz:[
+ ['What does the Elevated Wildlife Inspection cover?',['Ground floors only','Roof, attic, chimneys and vents','Vehicles'],1],
+ ['Before climbing, a ladder gets…',['A quick glance','Set, angle and footing checked','Washed'],1],
+ ['Where do inspection recommendations get priced from?',['Memory','The Price List','The customer\u2019s guess'],1]]},
+{id:'W8',week:4,title:'Laws, Records & the Customer',points:['You may only charge for nuisance wildlife work with a DEC NWCO licence.','The NWCO exam requires 80% or higher; the licence is $50/year and expires September 30.','Every NWCO files an annual report to DEC: client, date, species, method, disposition.','Explain the plan to the customer in plain words — what, why, and what happens next.'],quiz:[
+ ['What score passes the NWCO exam?',['70%','80% or higher','60%'],1],
+ ['The NWCO licence costs and expires…',['$200, never expires','$50/year, expires September 30','Free, expires in 5 years'],1],
+ ['The annual DEC report includes…',['Only totals','Client, date, species, method and disposition','Marketing results'],1]]}
+]};
+var MOCK={pest:{key:'core7a',name:'Mock Exam — Core / 7A style',pass:70,need:['P1','P2','P3','P4','P5','P6','P7']},
+          wildlife:{key:'nwco',name:'Mock Exam — NWCO style',pass:80,need:['W1','W2','W3','W4','W5','W6','W7']}};
+</script>
+
+<script>
+/* ============================== App logic ============================== */
+var app=document.getElementById('app'), tabbar=document.getElementById('tabbar'),
+    hdrWho=document.getElementById('hdrWho'), modal=document.getElementById('modal'),
+    modalSheet=document.getElementById('modalSheet');
+var me=null, prog=null, curTab='path', namesCache=[], cohortsCache=[];
+var localDone=read('qpa_local_done')||{}; // module_key -> true (offline optimistic)
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmtDate(iso){if(!iso)return'';var d=new Date(iso);if(isNaN(d.getTime()))return String(iso).slice(0,10);return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
+function openModal(html){modalSheet.innerHTML=html;modal.classList.add('open')}
+function closeModal(){modal.classList.remove('open');stopMockTimer()}
+modal.addEventListener('click',function(e){if(e.target===modal)closeModal()});
+function setHeader(){ if(me){hdrWho.innerHTML='<b>'+esc(me.name)+'</b>'+(me.role==='teacher'?'Teacher':'Trainee · '+esc(me.stage||''))+' · <a href="#" id="signout">Sign out</a>';
+  var so=document.getElementById('signout'); if(so)so.addEventListener('click',function(e){e.preventDefault();signOut()});} else hdrWho.innerHTML=''; }
+function signOut(){ session=null; store('qpa_session',null); me=null; prog=null; tabbar.classList.add('hidden'); setHeader(); renderAuth(); }
+function trackModules(){ return MODULES[me.track]; }
+function totalModules(){ return trackModules().length; }
+function completedSet(){
+  var s={}; if(prog&&prog.completed_modules) prog.completed_modules.forEach(function(k){s[k]=true});
+  Object.keys(localDone).forEach(function(k){s[k]=true}); return s;
+}
+function pctDone(){ var s=completedSet(),n=0; trackModules().forEach(function(m){if(s[m.id])n++}); return {n:n,total:totalModules(),pct:totalModules()?Math.round(n/totalModules()*100):0}; }
+
+/* ------------------------------ Auth ------------------------------ */
+function renderAuth(){
+  tabbar.classList.add('hidden');
+  app.innerHTML='<h2>Sign in</h2>'
+   +'<div class="card"><label>Your name</label><select id="aName"></select>'
+   +'<label>4-digit PIN</label><input id="aPin" type="password" inputmode="numeric" maxlength="4" placeholder="First time? The PIN you enter becomes yours.">'
+   +'<div class="err" id="aErr"></div>'
+   +'<button class="primary" id="aGo" style="width:100%">Sign in</button>'
+   +'<p class="small dim" style="margin-top:10px">New trainee added by your teacher? Pick your name — the PIN you enter now becomes yours.</p></div>'
+   +'<div class="seg" id="aSeg"><button data-m="reg" class="on">I\u2019m a new trainee</button><button data-m="teach">Set up as Teacher</button></div>'
+   +'<div class="card" id="aForm"></div>';
+  var sel=document.getElementById('aName');
+  sel.innerHTML=namesCache.length?namesCache.map(function(n){return '<option>'+esc(n.name)+'</option>'}).join(''):'<option value="">— no accounts yet —</option>';
+  var mode='reg';
+  function drawForm(){
+    var f=document.getElementById('aForm');
+    if(mode==='reg'){
+      f.innerHTML='<h3>Register as a trainee</h3><label>Name</label><input id="rName" autocomplete="name">'
+       +'<label>4-digit PIN (make one up — remember it)</label><input id="rPin" type="password" inputmode="numeric" maxlength="4">'
+       +'<label>Your path</label><div class="seg" id="rTrack"><button data-t="pest" class="on">Pest Control</button><button data-t="wildlife">Wildlife</button></div>'
+       +'<label>Cohort (if your teacher made one)</label><select id="rCohort"><option value="">No cohort yet</option></select>'
+       +'<div class="err" id="rErr"></div><button class="primary" id="rGo" style="width:100%">Create my account</button>';
+      var track='pest';
+      document.querySelectorAll('#rTrack button').forEach(function(b){b.addEventListener('click',function(){track=b.dataset.t;document.querySelectorAll('#rTrack button').forEach(function(x){x.classList.toggle('on',x===b)});drawCohorts()})});
+      function drawCohorts(){var cs=document.getElementById('rCohort');cs.innerHTML='<option value="">No cohort yet</option>'+cohortsCache.filter(function(c){return c.track===track}).map(function(c){return '<option value="'+c.id+'">'+esc(c.name)+'</option>'}).join('')}
+      drawCohorts();
+      document.getElementById('rGo').addEventListener('click',function(){
+        var name=document.getElementById('rName').value.trim(), pin=document.getElementById('rPin').value.trim(), cid=document.getElementById('rCohort').value||null;
+        rpc('academy_register_trainee',{p_name:name,p_pin:pin,p_track:track,p_cohort_id:cid}).then(function(tok){finishSignIn(name,tok)},function(e){document.getElementById('rErr').textContent=friendlyErr(e)});
+      });
+    } else {
+      f.innerHTML='<h3>Teacher setup</h3><p class="small dim">The first teacher account. Teachers can create more teacher accounts by having a colleague register here too.</p>'
+       +'<label>Teacher name</label><input id="tName" autocomplete="name">'
+       +'<label>4-digit PIN (make one up — remember it)</label><input id="tPin" type="password" inputmode="numeric" maxlength="4">'
+       +'<div class="err" id="tErr"></div><button class="primary" id="tGo" style="width:100%">Create teacher account</button>';
+      document.getElementById('tGo').addEventListener('click',function(){
+        var name=document.getElementById('tName').value.trim(), pin=document.getElementById('tPin').value.trim();
+        rpc('academy_create_teacher',{p_name:name,p_pin:pin}).then(function(tok){finishSignIn(name,tok)},function(e){document.getElementById('tErr').textContent=friendlyErr(e)});
+      });
+    }
+  }
+  document.querySelectorAll('#aSeg button').forEach(function(b){b.addEventListener('click',function(){mode=b.dataset.m;document.querySelectorAll('#aSeg button').forEach(function(x){x.classList.toggle('on',x===b)});drawForm()})});
+  drawForm();
+  document.getElementById('aGo').addEventListener('click',function(){
+    var name=sel.value, pin=document.getElementById('aPin').value.trim(), err=document.getElementById('aErr');
+    if(!name){err.textContent='No account with that name yet — register below first.';return}
+    rpc('academy_claim_or_verify_pin',{p_name:name,p_pin:pin}).then(function(tok){
+      if(!tok){err.textContent='Wrong PIN. Try again.';return}
+      finishSignIn(name,tok);
+    },function(e){err.textContent=friendlyErr(e)});
+  });
+}
+function friendlyErr(e){var m=String(e&&e.message||e); if(m.indexOf('already registered')>-1)return 'That name is already registered — sign in above instead.'; if(m.indexOf('PIN must be')>-1)return 'PIN must be exactly 4 digits.'; if(m.indexOf('Failed to fetch')>-1||m.indexOf('NetworkError')>-1)return 'Couldn\u2019t reach the server. Check your connection and try again.'; return m.replace(/^.*?:\s*/,'').slice(0,180)}
+function finishSignIn(name,tok){
+  if(!tok){renderAuth();return}
+  rpc('academy_session_user',{p_token:tok}).then(function(u){
+    if(!u){document.getElementById('aErr')&&(document.getElementById('aErr').textContent='Sign-in failed. Try again.');return}
+    me=u; session={name:u.name,role:u.role,token:tok}; store('qpa_session',session);
+    setHeader(); flushQueue(); enterApp();
+  },function(e){alert(friendlyErr(e))});
+}
+function enterApp(){
+  if(me.role==='teacher'){ tabbar.classList.add('hidden'); renderTeacher(); }
+  else { tabbar.classList.remove('hidden'); curTab='path'; loadProgress().then(renderTrainee); }
+}
+function loadProgress(){ return rpc('academy_my_progress',{p_token:session.token}).then(function(p){prog=p; if(p&&p.user)me=Object.assign(me,p.user); setHeader(); return p;},function(){prog=prog||{}; return prog;}); }
+
+/* ------------------------------ Trainee ------------------------------ */
+document.querySelectorAll('#tabbar button').forEach(function(b){b.addEventListener('click',function(){curTab=b.dataset.tab;renderTrainee()})});
+function renderTrainee(){
+  document.querySelectorAll('#tabbar button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===curTab)});
+  if(curTab==='path')renderPath(); else if(curTab==='learn')renderLearn();
+  else if(curTab==='checklist')renderChecklist(); else renderLicence();
+}
+function stageLadderHTML(){
+  var list=STAGES[me.track], cur=me.stage||list[0][0], ci=list.findIndex(function(s){return s[0]===cur});
+  return list.map(function(s,i){var cls=i<ci?'done':(i===ci?'here':'');
+    return '<div class="stage '+cls+'"><div class="dot">'+s[0]+'</div><div><div class="sn">'+esc(s[1])+'</div><div class="sd">'+esc(s[2])+(i===ci?' — You are here':'')+(i<ci?' — Completed':'')+'</div></div></div>'}).join('');
+}
+function renderPath(){
+  var d=pctDone();
+  var gate=prog&&prog.gate_decision?({'graduate':'🎓 Graduate — congratulations!','reshadow':'Extra shadowing + re-take','meeting':'Decision meeting — talk to your teacher'}[prog.gate_decision]||''):'';
+  app.innerHTML='<h2>My Path — '+(me.track==='pest'?'Pest Control':'Wildlife')+'</h2>'
+   +(gate?'<div class="okbox"><b>Teacher gate decision:</b> '+esc(gate)+'</div>':'')
+   +'<div class="card"><div class="row"><div class="grow"><b>Academy modules</b><div class="small dim">'+d.n+' of '+d.total+' complete</div></div><span class="pill red">'+d.pct+'%</span></div><div class="bar"><i style="width:'+d.pct+'%"></i></div></div>'
+   +'<div class="card"><h3 style="margin-top:0">Your stages</h3>'+stageLadderHTML()+'</div>'
+   +'<div class="card"><h3 style="margin-top:0">Licence milestones</h3>'+milestoneListHTML()+'<p class="small dim">Your teacher records the dates. Full list is on the Licence tab.</p></div>';
+}
+function milestoneListHTML(){
+  var set={}; if(prog&&prog.milestones)prog.milestones.forEach(function(m){set[m.milestone_key]=m});
+  return MILESTONES[me.track].map(function(m,i){var got=set[m[0]];
+    return '<div class="stage '+(got?'done':'')+'"><div class="dot">'+(got?'✓':(i+1))+'</div><div><div class="sn" style="font-size:.95rem">'+esc(m[1])+'</div><div class="sd">'+(got?('Recorded '+fmtDate(got.milestone_date)):'Not recorded yet')+'</div></div></div>'}).join('');
+}
+function renderLicence(){
+  app.innerHTML='<h2>Licence Milestones — '+(me.track==='pest'?'Pest Control':'Wildlife')+'</h2>'
+   +'<div class="card">'+milestoneListHTML()+'</div>'
+   +(me.track==='pest'
+     ?'<div class="card"><h3 style="margin-top:0">The QualityPro order</h3><p>Apprentice first, working under supervision. Then the DEC-approved 30-hour course and the Core + Category 7A exams (50 questions each, 70% to pass) for your DEC Technician licence in 7A. After 1 year as a licensed Technician, you apply for the Certified Applicator licence.</p></div>'
+     :'<div class="card"><h3 style="margin-top:0">The NWCO route</h3><p>Complete NWCO training (site evaluation, non-lethal methods, exclusion, habitat modification, capture &amp; handling), pass the DEC exam at 80% or higher — the DEC exam is free, or the NWCTP online course is $200 — then apply for the licence: $50/year, expires September 30. NWCOs file an annual report to DEC.</p></div>');
+}
+function renderChecklist(){
+  var set={}; if(prog&&prog.signoffs)prog.signoffs.forEach(function(s){set[s.item_key]=s});
+  var items=CHECKLISTS[me.track], signed=items.filter(function(i){return set[i[0]]}).length;
+  app.innerHTML='<h2>My Practical Checklist</h2>'
+   +'<div class="notice">These items can only be signed by your teacher, in person. You can watch your progress here, but you can\u2019t sign them yourself.</div>'
+   +'<div class="card"><div class="row"><b>'+signed+' of '+items.length+' signed</b></div>'
+   + items.map(function(i){var s=set[i[0]];
+     return '<div class="checkrow"><div>'+esc(i[1])+'</div><div class="st">'+(s?'<span class="pill ok">Signed</span><div class="small dim">by '+esc(s.signed_by)+' · '+fmtDate(s.signed_at)+'</div>':'<span class="pill warn">Needs teacher sign-off</span>')+'</div></div>'}).join('')
+   +'</div>';
+}
+function renderLearn(){
+  var done=completedSet(), mock=MOCK[me.track];
+  var unlocked=mock.need.every(function(k){return done[k]});
+  var lastMock=prog&&prog.mock_exams&&prog.mock_exams.length?prog.mock_exams[prog.mock_exams.length-1]:null;
+  var html='<h2>Learn — '+(me.track==='pest'?'Pest Control':'Wildlife')+'</h2>';
+  html+='<div class="card tap" id="mockCard"><div class="row"><div class="grow"><b>'+esc(mock.name)+'</b><div class="small dim">Pass mark '+mock.pass+'% · '+(unlocked?'Unlocked':'Locked — finish all Week 1–3 modules first')+(lastMock?(' · Last: '+lastMock.pct+'% ('+(lastMock.passed?'passed':'not yet')+')'):'')+'</div></div><span class="pill '+(unlocked?'red':'')+'">'+(unlocked?'START':'🔒')+'</span></div></div>';
+  var wk=0;
+  MODULES[me.track].forEach(function(m){
+    if(m.week!==wk){wk=m.week; html+='<h3>Week '+wk+'</h3>'}
+    var isDone=!!done[m.id];
+    html+='<div class="card"><button class="modhead" data-mod="'+m.id+'"><span class="pill '+(isDone?'ok':'red')+'">'+m.id+'</span><span class="grow" style="text-align:left"><b>'+esc(m.title)+'</b></span><span>'+(isDone?'✓':'›')+'</span></button><div class="lessons" id="les-'+m.id+'"></div></div>';
+  });
+  app.innerHTML=html;
+  document.querySelectorAll('.modhead').forEach(function(b){b.addEventListener('click',function(){
+    var box=document.getElementById('les-'+b.dataset.mod);
+    if(box.classList.contains('open')){box.classList.remove('open');box.innerHTML='';return}
+    document.querySelectorAll('.lessons.open').forEach(function(x){x.classList.remove('open');x.innerHTML=''});
+    box.classList.add('open'); drawLesson(box, MODULES[me.track].find(function(m){return m.id===b.dataset.mod}));
+  })});
+  document.getElementById('mockCard').addEventListener('click',function(){
+    if(!unlocked){openModal('<h3>'+esc(mock.name)+'</h3><p>This mock unlocks when your Week 1–3 modules are all complete:</p><p style="margin:10px 0">'+mock.need.map(function(k){return '<span class="pill '+(done[k]?'ok':'')+'">'+k+(done[k]?' ✓':'')+'</span>'}).join(' ')+'</p><button class="ghost" style="width:100%" onclick="void(0)" id="mClose">Close</button>');document.getElementById('mClose').addEventListener('click',closeModal);return}
+    startMock(mock);
+  });
+}
+function drawLesson(box,m){
+  box.innerHTML='<ul class="kp">'+m.points.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul>'
+   +'<h3>Check yourself — 80% to pass</h3><div id="qz-'+m.id+'">'
+   + m.quiz.map(function(q,qi){return '<p style="margin-top:12px"><b>'+(qi+1)+'.</b> '+esc(q[0])+'</p>'+q[1].map(function(o,oi){return '<button class="qopt" data-q="'+qi+'" data-o="'+oi+'">'+esc(o)+'</button>'}).join('')}).join('')
+   +'</div><div class="err" id="qzErr-'+m.id+'"></div><button class="primary" id="qzGo-'+m.id+'" style="width:100%">Submit quiz</button>';
+  var picks={};
+  box.querySelectorAll('.qopt').forEach(function(b){b.addEventListener('click',function(){
+    picks[b.dataset.q]=+b.dataset.o;
+    box.querySelectorAll('.qopt[data-q="'+b.dataset.q+'"]').forEach(function(x){x.classList.toggle('sel',x===b)});
+  })});
+  document.getElementById('qzGo-'+m.id).addEventListener('click',function(){
+    var err=document.getElementById('qzErr-'+m.id);
+    if(Object.keys(picks).length<m.quiz.length){err.textContent='Answer every question first.';return}
+    var score=0; m.quiz.forEach(function(q,qi){if(picks[qi]===q[2])score++});
+    sendProgress('academy_record_quiz',{p_module_key:m.id,p_score:score,p_total:m.quiz.length}).then(function(res){
+      var pct=Math.round(score/m.quiz.length*100);
+      if(res&&typeof res.pct==='number')pct=res.pct;
+      if(pct>=80){localDone[m.id]=true;store('qpa_local_done',localDone)}
+      loadProgress().then(function(){
+        openModal('<h3>'+(pct>=80?'Passed — '+pct+'%':'Not yet — '+pct+'%')+'</h3><p>'+(pct>=80?'Module '+m.id+' is complete and saved.':'You need 80% to pass. Review the key points and try again — your attempt was saved.')+'</p><button class="primary" id="mOk" style="width:100%;margin-top:12px">Keep going</button>');
+        document.getElementById('mOk').addEventListener('click',function(){closeModal();renderLearn()});
+      });
+    });
+  });
+}
+/* Mock exam */
+var mockState=null, mockInt=null;
+function stopMockTimer(){if(mockInt){clearInterval(mockInt);mockInt=null}}
+function startMock(mock){
+  var pool=[]; MODULES[me.track].forEach(function(m){m.quiz.forEach(function(q){pool.push({q:q,from:m.id})})});
+  var qs=[]; for(var i=0;i<pool.length&&qs.length<10;i+=2)qs.push(pool[i]);
+  mockState={mock:mock,qs:qs,picks:{},left:15*60,t0:Date.now()};
+  openModal('<div class="row"><h3 class="grow" style="margin:0">'+esc(mock.name)+'</h3><span class="timer" id="mTimer">15:00</span></div>'
+   +'<p class="small dim">Pass mark '+mock.pass+'%. Answer all '+qs.length+' questions.</p><div id="mQs">'
+   + qs.map(function(it,qi){return '<p style="margin-top:12px"><b>'+(qi+1)+'.</b> '+esc(it.q[0])+'</p>'+it.q[1].map(function(o,oi){return '<button class="qopt mq" data-q="'+qi+'" data-o="'+oi+'">'+esc(o)+'</button>'}).join('')}).join('')
+   +'</div><div class="err" id="mErr"></div><button class="primary" id="mGo" style="width:100%">Submit exam</button>');
+  modalSheet.querySelectorAll('.mq').forEach(function(b){b.addEventListener('click',function(){
+    mockState.picks[b.dataset.q]=+b.dataset.o;
+    modalSheet.querySelectorAll('.mq[data-q="'+b.dataset.q+'"]').forEach(function(x){x.classList.toggle('sel',x===b)});
+  })});
+  function tick(){var t=document.getElementById('mTimer');if(!t){stopMockTimer();return}
+    mockState.left--; var mm=Math.floor(mockState.left/60), ss=mockState.left%60;
+    t.textContent=mm+':'+(ss<10?'0':'')+ss; if(mockState.left<=0){stopMockTimer();submitMock()}}
+  mockInt=setInterval(tick,1000);
+  document.getElementById('mGo').addEventListener('click',submitMock);
+  function submitMock(){
+    if(!mockState)return; stopMockTimer();
+    var picks=mockState.picks, qs2=mockState.qs, err=document.getElementById('mErr');
+    if(Object.keys(picks).length<qs2.length){if(err)err.textContent='Answer every question first.'; mockInt=setInterval(tick,1000); return}
+    var score=0; qs2.forEach(function(it,qi){if(picks[qi]===it.q[2])score++});
+    var dur=Math.round((Date.now()-mockState.t0)/1000), mk=mockState.mock; mockState=null;
+    sendProgress('academy_record_mock',{p_exam_key:mk.key,p_score:score,p_total:qs2.length,p_duration_sec:dur}).then(function(res){
+      var pct=Math.round(score/qs2.length*100); if(res&&typeof res.pct==='number')pct=res.pct;
+      var passed=pct>=mk.pass;
+      loadProgress().then(function(){
+        openModal('<h3>'+(passed?'Mock passed — '+pct+'%':'Mock not passed — '+pct+'%')+'</h3><p>Pass mark is '+mk.pass+'%. Your result was saved'+(res?'':' on this phone and will send when you are back online')+'.</p><button class="primary" id="mOk2" style="width:100%;margin-top:12px">Done</button>');
+        document.getElementById('mOk2').addEventListener('click',function(){closeModal();renderLearn()});
+      });
+    });
+  }
+}
+</script>
+
+<script>
+/* ------------------------------ Teacher ------------------------------ */
+var dashRows=[];
+function teacherCall(fn,args){ args=args||{}; args.p_token=session.token; return rpc(fn,args); }
+function gatePill(row){
+  var total=MODULES[row.track]?MODULES[row.track].length:0;
+  var label={graduate:'Graduate',meeting:'Decision meeting',gate_failed:'Gate failed',on_track:'On track'}[row.gate_status]||row.gate_status;
+  var cls=row.gate_status==='graduate'?'ok':(row.gate_status==='on_track'?'warn':'bad');
+  var pct=total?Math.round((row.modules_completed||0)/total*100):0;
+  return {label:label,cls:cls,pct:pct,total:total};
+}
+function renderTeacher(){
+  app.innerHTML='<h2>Teacher — Cohorts</h2><div id="tBody"><p class="dim">Loading…</p></div>';
+  Promise.all([rpc('academy_list_cohorts',{}), teacherCall('academy_teacher_dashboard',{})]).then(function(r){
+    cohortsCache=r[0]||[]; dashRows=r[1]||[];
+    var body=document.getElementById('tBody'); if(!body)return;
+    var html='<div class="card"><h3 style="margin-top:0">Create a cohort</h3>'
+     +'<label>Cohort name</label><input id="cName" placeholder="e.g. Cohort 1">'
+     +'<label>Path</label><div class="seg" id="cTrack"><button data-t="pest" class="on">Pest Control</button><button data-t="wildlife">Wildlife</button></div>'
+     +'<label>Start date (optional — can stay blank)</label><input id="cDate" type="date">'
+     +'<div class="err" id="cErr"></div><button class="primary" id="cGo" style="width:100%">Create cohort</button></div>';
+    html+='<div class="card"><h3 style="margin-top:0">Add a trainee</h3>'
+     +'<label>Cohort</label><select id="atCohort">'+cohortsCache.map(function(c){return '<option value="'+c.id+'">'+esc(c.name)+' ('+(c.track==='pest'?'Pest':'Wildlife')+')</option>'}).join('')+'</select>'
+     +'<label>Trainee name</label><input id="atName">'
+     +'<p class="small dim">The trainee sets their own PIN the first time they sign in.</p>'
+     +'<div class="err" id="atErr"></div><button class="primary" id="atGo" style="width:100%">Add trainee</button></div>';
+    html+='<h2>Cohort Dashboard</h2>';
+    if(!dashRows.length) html+='<div class="card"><p class="dim">No trainees yet. Create a cohort and add trainees above — or a trainee can register themselves from the sign-in screen.</p></div>';
+    dashRows.forEach(function(row){
+      var g=gatePill(row);
+      html+='<div class="card tap" data-rec="'+row.user_id+'"><div class="row"><div class="grow"><b>'+esc(row.name)+'</b><div class="small dim">'+esc(row.cohort_name||'No cohort')+' · '+(row.track==='pest'?'Pest':'Wildlife')+' · Stage '+esc(row.stage||'')+'</div></div><span class="pill '+g.cls+'">'+g.label+'</span></div>'
+       +'<div class="bar"><i style="width:'+g.pct+'%"></i></div>'
+       +'<div class="small dim">Modules '+g.pct+'% · Quiz avg '+(row.quiz_avg!=null?row.quiz_avg+'%':'—')+' · Mock '+(row.mock_latest?(row.mock_latest.pct+'% '+(row.mock_latest.passed?'(passed)':'(not yet)')):'not taken')+' · Sign-offs '+row.signoffs+'/'+(CHECKLISTS[row.track]?CHECKLISTS[row.track].length:0)+(row.gate_decision?' · Decision: '+esc(row.gate_decision):'')+'</div></div>';
+    });
+    body.innerHTML=html;
+    var cTrack='pest';
+    body.querySelectorAll('#cTrack button').forEach(function(b){b.addEventListener('click',function(){cTrack=b.dataset.t;body.querySelectorAll('#cTrack button').forEach(function(x){x.classList.toggle('on',x===b)})})});
+    document.getElementById('cGo').addEventListener('click',function(){
+      var name=document.getElementById('cName').value.trim(), d=document.getElementById('cDate').value||null, err=document.getElementById('cErr');
+      if(!name){err.textContent='Give the cohort a name first.';return}
+      teacherCall('academy_create_cohort',{p_name:name,p_track:cTrack,p_start_date:d}).then(function(){renderTeacher()},function(e){err.textContent=friendlyErr(e)});
+    });
+    document.getElementById('atGo').addEventListener('click',function(){
+      var cid=document.getElementById('atCohort').value, name=document.getElementById('atName').value.trim(), err=document.getElementById('atErr');
+      if(!cid){err.textContent='Create a cohort first.';return}
+      if(!name){err.textContent='Enter the trainee\u2019s name.';return}
+      teacherCall('academy_add_trainee',{p_cohort_id:cid,p_name:name}).then(function(){renderTeacher()},function(e){err.textContent=friendlyErr(e)});
+    });
+    body.querySelectorAll('[data-rec]').forEach(function(c){c.addEventListener('click',function(){renderTraineeRecord(c.dataset.rec)})});
+  },function(e){var b=document.getElementById('tBody'); if(b)b.innerHTML='<div class="notice">'+esc(friendlyErr(e))+'</div>'});
+}
+function renderTraineeRecord(uid){
+  app.innerHTML='<h2>Trainee Record</h2><div id="rBody"><p class="dim">Loading…</p></div>';
+  teacherCall('academy_trainee_record',{p_user_id:uid}).then(function(rec){
+    var u=rec.user, body=document.getElementById('rBody'); if(!body)return;
+    me._recTrack=u.track; // not used for own views; teacher only
+    var done={}; (rec.completed_modules||[]).forEach(function(k){done[k]=true});
+    var total=MODULES[u.track].length, ndone=(rec.completed_modules||[]).length;
+    var signed={}; (rec.signoffs||[]).forEach(function(s){signed[s.item_key]=s});
+    var ms={}; (rec.milestones||[]).forEach(function(m){ms[m.milestone_key]=m});
+    var html='<button class="ghost" id="rBack">← Back to dashboard</button>';
+    html+='<div class="card"><div class="row"><div class="grow"><b>'+esc(u.name)+'</b><div class="small dim">'+(u.track==='pest'?'Pest Control':'Wildlife')+' · Stage '+esc(u.stage||'')+'</div></div><span class="pill red">'+Math.round(ndone/total*100)+'% modules</span></div>'
+     +'<div class="small dim" style="margin-top:6px">Quizzes: '+(rec.quiz_attempts.length?rec.quiz_attempts.map(function(a){return a.module_key+' '+a.pct+'%'}).join(' · '):'none yet')+'</div>'
+     +'<div class="small dim">Mock exams: '+(rec.mock_exams.length?rec.mock_exams.map(function(a){return a.exam_key+' '+a.pct+'% ('+(a.passed?'passed':'not yet')+')'}).join(' · '):'none yet')+'</div>'
+     +((rec.stage_history&&rec.stage_history.length)?'<div class="small dim">Promotions: '+rec.stage_history.map(function(h){return esc(h.from_stage||'—')+' → '+esc(h.to_stage)+' by '+esc(h.promoted_by)+' · '+fmtDate(h.created_at)}).join(' · ')+'</div>':'')
+     +'</div>';
+    html+='<div class="card"><h3 style="margin-top:0">Promote stage</h3><div class="row"><select id="pStage" class="grow">'+STAGES[u.track].map(function(s){return '<option value="'+s[0]+'"'+(s[0]===u.stage?' selected':'')+'>'+s[0]+' — '+esc(s[1])+'</option>'}).join('')+'</select><button class="primary" id="pGo">Promote</button></div></div>';
+    html+='<div class="card"><h3 style="margin-top:0">Practical sign-offs (tap to sign)</h3>'
+     + CHECKLISTS[u.track].map(function(i){var s=signed[i[0]];
+       return '<div class="checkrow"><div>'+esc(i[1])+'<div class="small dim">'+(s?('Signed by '+esc(s.signed_by)+' · '+fmtDate(s.signed_at)):'Not signed')+'</div></div><div class="st">'+(s?'<button class="ghost" data-unsign="'+i[0]+'">Undo</button>':'<button class="primary" data-sign="'+i[0]+'">Sign</button>')+'</div></div>'}).join('')+'</div>';
+    html+='<div class="card"><h3 style="margin-top:0">Licence milestones</h3>'
+     + MILESTONES[u.track].map(function(m){var got=ms[m[0]];
+       return '<div class="checkrow"><div>'+esc(m[1])+'<div class="small dim">'+(got?('Recorded '+fmtDate(got.milestone_date)+' by '+esc(got.set_by)):'Not recorded')+'</div></div><div class="st row"><input type="date" id="ms-'+m[0]+'" value="'+(got?String(got.milestone_date).slice(0,10):'')+'" style="width:150px"><button class="primary" data-ms="'+m[0]+'">Set</button></div></div>'}).join('')+'</div>';
+    html+='<div class="card"><h3 style="margin-top:0">Gate decision</h3><div class="grid2">'
+     +'<button data-gate="graduate" class="'+(rec.gate_decision==='graduate'?'primary':'ghost')+'">🎓 Graduate</button>'
+     +'<button data-gate="reshadow" class="'+(rec.gate_decision==='reshadow'?'primary':'ghost')+'">Extra shadowing + re-take</button>'
+     +'<button data-gate="meeting" class="'+(rec.gate_decision==='meeting'?'primary':'ghost')+'">Decision meeting</button></div>'
+     +'<div class="err" id="rErr"></div></div>';
+    html+='<button class="ghost" id="rRemove" style="width:100%;color:#ff9c9c;border-color:#5a2b2b">Remove this trainee</button>';
+    body.innerHTML=html;
+    document.getElementById('rBack').addEventListener('click',renderTeacher);
+    document.getElementById('pGo').addEventListener('click',function(){
+      teacherCall('academy_promote_stage',{p_user_id:uid,p_to_stage:document.getElementById('pStage').value}).then(function(){renderTraineeRecord(uid)},function(e){document.getElementById('rErr').textContent=friendlyErr(e)});
+    });
+    body.querySelectorAll('[data-sign]').forEach(function(b){b.addEventListener('click',function(){
+      teacherCall('academy_sign_item',{p_user_id:uid,p_item_key:b.dataset.sign}).then(function(){renderTraineeRecord(uid)},function(e){document.getElementById('rErr').textContent=friendlyErr(e)});
+    })});
+    body.querySelectorAll('[data-unsign]').forEach(function(b){b.addEventListener('click',function(){
+      teacherCall('academy_unsign_item',{p_user_id:uid,p_item_key:b.dataset.unsign}).then(function(){renderTraineeRecord(uid)},function(e){document.getElementById('rErr').textContent=friendlyErr(e)});
+    })});
+    body.querySelectorAll('[data-ms]').forEach(function(b){b.addEventListener('click',function(){
+      var d=document.getElementById('ms-'+b.dataset.ms).value; var err=document.getElementById('rErr');
+      if(!d){err.textContent='Pick a date for that milestone first.';return}
+      teacherCall('academy_set_milestone',{p_user_id:uid,p_milestone_key:b.dataset.ms,p_date:d}).then(function(){renderTraineeRecord(uid)},function(e){err.textContent=friendlyErr(e)});
+    })});
+    body.querySelectorAll('[data-gate]').forEach(function(b){b.addEventListener('click',function(){
+      teacherCall('academy_set_gate',{p_user_id:uid,p_decision:b.dataset.gate}).then(function(){renderTraineeRecord(uid)},function(e){document.getElementById('rErr').textContent=friendlyErr(e)});
+    })});
+    document.getElementById('rRemove').addEventListener('click',function(){
+      if(!confirm('Remove '+u.name+' from the Academy? Their records stay saved but they can no longer sign in.'))return;
+      teacherCall('academy_remove_trainee',{p_user_id:uid}).then(function(){renderTeacher()},function(e){document.getElementById('rErr').textContent=friendlyErr(e)});
+    });
+  },function(e){var b=document.getElementById('rBody'); if(b)b.innerHTML='<button class="ghost" onclick="location.reload()">← Retry</button><div class="notice">'+esc(friendlyErr(e))+'</div>'});
+}
+
+/* ------------------------------ Boot ------------------------------ */
+function boot(){
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(function(){}); }
+  Promise.all([rpc('academy_list_names',{}).catch(function(){return[]}), rpc('academy_list_cohorts',{}).catch(function(){return[]})]).then(function(r){
+    namesCache=r[0]||[]; cohortsCache=r[1]||[];
+    if(session&&session.token){
+      rpc('academy_session_user',{p_token:session.token}).then(function(u){
+        if(!u){signOut();return}
+        me=u; session={name:u.name,role:u.role,token:session.token}; store('qpa_session',session);
+        setHeader(); flushQueue(); enterApp();
+      },function(){renderAuth()});
+    } else renderAuth();
+  });
+}
+boot();
+</script>
+</body>
+</html>
