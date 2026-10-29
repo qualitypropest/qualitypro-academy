@@ -1,6 +1,6 @@
 // QualityPro Academy — offline service worker
 // Bump VERSION whenever the app content changes so phones pick up the new build.
-const VERSION = 'academy-v1';
+const VERSION = 'academy-v2';
 const CORE = [
   './',
   './index.html',
